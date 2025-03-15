@@ -33,9 +33,11 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="d9dff" class="javax.swing.JTable" binding="clientesTabla">
+              <component id="d9dff" class="javax.swing.JTable" binding="clientesTabla" custom-create="true">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <font name="Arial" size="18" style="0"/>
+                </properties>
               </component>
             </children>
           </scrollpane>
