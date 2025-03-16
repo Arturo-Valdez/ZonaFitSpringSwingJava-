@@ -54,16 +54,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="352a1" class="javax.swing.JButton" binding="guardarButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-16772659"/>
-              <font name="Arial" size="16" style="1"/>
-              <text value="Guardar"/>
-            </properties>
-          </component>
           <component id="54957" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -83,6 +73,17 @@
               <font name="Arial" size="16" style="1"/>
               <foreground color="-16777216"/>
               <text value="Limpiar"/>
+            </properties>
+          </component>
+          <component id="352a1" class="javax.swing.JButton" binding="guardarButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16772659"/>
+              <font name="Arial" size="16" style="1"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Guardar"/>
             </properties>
           </component>
         </children>
