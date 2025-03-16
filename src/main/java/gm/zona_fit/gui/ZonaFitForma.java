@@ -13,6 +13,7 @@ import java.awt.event.*;
 
 @Component
 public class ZonaFitForma extends JFrame{
+    //Atributos
     private JPanel panelPrincipal;
     private JTable clientesTabla;
     private JTextField nombreTexto;
@@ -33,6 +34,7 @@ public class ZonaFitForma extends JFrame{
         eliminarButton.addActionListener(e -> eliminarCliente());
         limpiarButton.addActionListener(e -> limpiarFormulario());
 
+        //Seleccionar usuarios de la tabla y reflejarlos en las casillas
         clientesTabla.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
