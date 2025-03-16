@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 @Component
 public class ZonaFitForma extends JFrame{
@@ -24,12 +23,20 @@ public class ZonaFitForma extends JFrame{
     private JButton limpiarButton;
     IClienteServicio clienteServicio;
     private DefaultTableModel tablaModeloCliente;
+    private Integer idCliente;
 
     @Autowired
     public ZonaFitForma(ClienteServicio clienteServicio){
         this.clienteServicio = clienteServicio;
         iniciarForma();
         guardarButton.addActionListener(e -> guardarCliente());
+        clientesTabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cargarClienteSeleccionado();
+            }
+        });
     }
 
     private void iniciarForma() {
@@ -38,11 +45,6 @@ public class ZonaFitForma extends JFrame{
         setSize(900, 700);
         setLocationRelativeTo(null);//Centra Ventana
     }
-
-
-
-
-
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -105,6 +107,20 @@ public class ZonaFitForma extends JFrame{
         nombreTexto.setText("");
         apellidoTexto.setText("");
         membresiaTexto.setText("");
+    }
+
+    private void cargarClienteSeleccionado() {
+        var renglon = clientesTabla.getSelectedRow();
+        if(renglon != -1){//-1 no se selecciono ningun registro
+            var id = clientesTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idCliente = Integer.parseInt(id);
+            var nombre = clientesTabla.getModel().getValueAt(renglon, 1).toString();
+            this.nombreTexto.setText(nombre);
+            var apellido = clientesTabla.getModel().getValueAt(renglon, 2).toString();
+            this.apellidoTexto.setText(apellido);
+            var membresia = clientesTabla.getModel().getValueAt(renglon, 3).toString();
+            this.membresiaTexto.setText(membresia);
+        }
     }
 
     private void mostrarMensaje(String mensaje) {
