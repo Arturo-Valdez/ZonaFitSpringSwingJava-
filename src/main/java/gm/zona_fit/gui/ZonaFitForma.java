@@ -30,6 +30,9 @@ public class ZonaFitForma extends JFrame{
         this.clienteServicio = clienteServicio;
         iniciarForma();
         guardarButton.addActionListener(e -> guardarCliente());
+        eliminarButton.addActionListener(e -> eliminarCliente());
+        limpiarButton.addActionListener(e -> limpiarFormulario());
+
         clientesTabla.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -38,6 +41,8 @@ public class ZonaFitForma extends JFrame{
             }
         });
     }
+
+
 
     private void iniciarForma() {
         setContentPane(panelPrincipal);
@@ -93,11 +98,14 @@ public class ZonaFitForma extends JFrame{
         var apellido = apellidoTexto.getText();
         var membresia = Integer.parseInt(membresiaTexto.getText());
 
-        var cliente = new Cliente();
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setMembresia(membresia);
+        //Si el idCliente es nulo se crea nuevo usuario, si idCliente cuenta con valor se edita informacion
+        var cliente = new Cliente(this.idCliente, nombre, apellido, membresia);
         this.clienteServicio.guardarCliente(cliente);//Insertar datos
+        if(this.idCliente == null){
+            mostrarMensaje("Se ha creado un nuevo cliente");
+        }else{
+            mostrarMensaje("Se ha editado informacion del cliente id: " + this.idCliente);
+        }
         //Realizar limpieza // recargar el listado de clientes
         limpiarFormulario();
         listarClientes();
@@ -107,6 +115,10 @@ public class ZonaFitForma extends JFrame{
         nombreTexto.setText("");
         apellidoTexto.setText("");
         membresiaTexto.setText("");
+        //Limpiamos el id cliente seleccionado
+        this.idCliente = null;
+        //deseleccionamos el registro seleccionado de la tabla
+        this.clientesTabla.getSelectionModel().clearSelection();
     }
 
     private void cargarClienteSeleccionado() {
@@ -120,6 +132,22 @@ public class ZonaFitForma extends JFrame{
             this.apellidoTexto.setText(apellido);
             var membresia = clientesTabla.getModel().getValueAt(renglon, 3).toString();
             this.membresiaTexto.setText(membresia);
+        }
+    }
+
+    private void eliminarCliente() {
+        var renglon = clientesTabla.getSelectedRow();
+        if(renglon != -1){
+            var idClienteStr = clientesTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idCliente = Integer.parseInt(idClienteStr);
+            var cliente = new Cliente();
+            cliente.setId(this.idCliente);
+            clienteServicio.eliminarCliente(cliente);
+            mostrarMensaje("Cliente con id: " + this.idCliente + " eliminado");
+            limpiarFormulario();
+            listarClientes();
+        }else{
+            mostrarMensaje("Debe seleccionar un Cliente a eliminar");
         }
     }
 
